@@ -1,33 +1,200 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Edward Sotelo Jr — Apps</title>
-  <meta name="description" content="Apps by Edward Sotelo Jr.">
-  <style>
-    body {
-      margin: 0; min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      background: #0b0d1f; color: #e8e9f5;
-      font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-    main { max-width: 32rem; padding: 2rem 1.25rem; text-align: center; }
-    h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
-    p { color: #a9acc8; margin: 0 0 1.5rem; }
-    a { color: #4dd8e6; }
-    .links a { display: block; margin: .4rem 0; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edward Sotelo Jr — Apps</title>
+<meta name="description" content="Apps by Edward Sotelo Jr, including Match Made In Heaven, an astrological compatibility app for iPhone and iPad.">
+<meta name="theme-color" content="#050716">
+<meta property="og:title" content="Edward Sotelo Jr — Apps">
+<meta property="og:description" content="Match Made In Heaven: two birth charts, one score. For iPhone and iPad.">
+<style>
+  :root{
+    --deep-space:#050716; --midnight:#0b0e2b; --horizon:#16133d;
+    --nebula:#7b5cff; --aurora:#4dd8e6; --starlight:#f2c14e;
+    --text:#ffffff; --text-2:rgba(255,255,255,.68); --text-3:rgba(255,255,255,.42);
+    --card:rgba(255,255,255,.06); --stroke:rgba(255,255,255,.10);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; color:var(--text); background:var(--deep-space);
+    background-image:
+      radial-gradient(ellipse 90% 60% at 50% -10%, var(--horizon) 0%, transparent 60%),
+      linear-gradient(180deg, var(--midnight) 0%, var(--deep-space) 55%);
+    background-attachment:fixed;
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    overflow-x:hidden;
+  }
+
+  /* A light scatter of stars, drawn in CSS so the page has no image to load. */
+  .stars{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.75}
+  .stars::before,.stars::after{
+    content:"";position:absolute;inset:0;background-repeat:repeat;
+  }
+  .stars::before{
+    background-image:
+      radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 67% 9%, #fff 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 84% 32%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 31% 44%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 52% 71%, #fff 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 8% 83%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 91% 77%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 43% 92%, #fff 50%, transparent 51%);
+    background-size:420px 420px;
+  }
+  .stars::after{
+    background-image:
+      radial-gradient(1px 1px at 22% 62%, rgba(255,255,255,.7) 50%, transparent 51%),
+      radial-gradient(1px 1px at 76% 54%, rgba(255,255,255,.7) 50%, transparent 51%),
+      radial-gradient(1px 1px at 58% 26%, rgba(242,193,78,.9) 50%, transparent 51%),
+      radial-gradient(1px 1px at 4% 38%, rgba(77,216,230,.9) 50%, transparent 51%);
+    background-size:300px 300px;
+    animation:twinkle 6s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle{from{opacity:.35}to{opacity:1}}
+  @media (prefers-reduced-motion:reduce){.stars::after{animation:none}}
+
+  .wrap{position:relative;z-index:1;max-width:46rem;margin:0 auto;padding:4rem 1.25rem 3rem}
+
+  .dev{
+    text-align:center;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--text-3);margin:0 0 3rem;
+  }
+
+  /* Hero */
+  .hero{text-align:center}
+  .orbit{
+    position:relative;width:132px;height:132px;margin:0 auto 1.75rem;
+    border-radius:50%;border:1px solid var(--stroke);
+  }
+  .orbit::before{
+    content:"";position:absolute;inset:22px;border-radius:50%;
+    border:1px dashed rgba(255,255,255,.14);
+  }
+  .core{
+    position:absolute;inset:46px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #fff 0%, var(--starlight) 35%, #c98a1c 100%);
+    box-shadow:0 0 28px rgba(242,193,78,.55);
+  }
+  .body{
+    position:absolute;top:50%;left:50%;width:12px;height:12px;margin:-6px 0 0 -6px;
+    border-radius:50%;
+  }
+  .body.a{background:var(--aurora);box-shadow:0 0 12px var(--aurora);animation:spin 9s linear infinite}
+  .body.b{background:var(--nebula);box-shadow:0 0 12px var(--nebula);animation:spin-rev 9s linear infinite}
+  @keyframes spin{from{transform:rotate(0) translateX(66px)}to{transform:rotate(360deg) translateX(66px)}}
+  @keyframes spin-rev{from{transform:rotate(180deg) translateX(66px)}to{transform:rotate(-180deg) translateX(66px)}}
+  @media (prefers-reduced-motion:reduce){
+    .body.a,.body.b{animation:none}
+    .body.a{transform:translateX(66px)}
+    .body.b{transform:rotate(180deg) translateX(66px)}
+  }
+
+  h1{
+    font-size:clamp(2.1rem,7vw,3rem);line-height:1.1;margin:0 0 .75rem;
+    background:linear-gradient(100deg,var(--nebula),var(--aurora));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .tag{font-size:1.15rem;color:var(--text-2);margin:0 auto 2rem;max-width:30rem}
+
+  .cta{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;
+    padding:.8rem 1.4rem;border-radius:999px;font-weight:600;text-decoration:none;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn.primary{background:linear-gradient(100deg,var(--nebula),#5a8bff);color:#fff;box-shadow:0 8px 24px rgba(123,92,255,.35)}
+  .btn.ghost{border:1px solid var(--stroke);color:var(--text);background:var(--card)}
+  .btn.ghost:hover{background:rgba(255,255,255,.1)}
+  .btn svg{width:18px;height:18px;fill:currentColor}
+
+  /* Features */
+  .features{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.85rem;
+    margin:4rem 0 0;
+  }
+  .card{
+    background:var(--card);border:1px solid var(--stroke);border-radius:16px;
+    padding:1.25rem;
+  }
+  .glyph{font-size:1.4rem;color:var(--starlight);margin-bottom:.4rem;line-height:1}
+  .card h3{font-size:1rem;margin:0 0 .35rem}
+  .card p{margin:0;color:var(--text-2);font-size:.95rem}
+
+  .fine{
+    text-align:center;color:var(--text-3);font-size:.875rem;margin:2.5rem auto 0;max-width:32rem;
+  }
+
+  footer{
+    margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--stroke);
+    text-align:center;font-size:.875rem;color:var(--text-3);
+  }
+  footer nav{display:flex;flex-wrap:wrap;gap:.4rem 1.25rem;justify-content:center;margin-bottom:.6rem}
+  footer a{color:var(--text-2);text-decoration:none}
+  footer a:hover{color:var(--text)}
+  a:focus-visible{outline:2px solid var(--aurora);outline-offset:3px}
+</style>
 </head>
 <body>
-  <main>
-    <h1>Match Made in Heaven</h1>
-    <p>Relationship compatibility based on birth charts. For iPhone and iPad.</p>
-    <div class="links">
-      <a href="https://apps.apple.com/app/id1476080558">View on the App Store</a>
+<div class="stars" aria-hidden="true"></div>
+
+<div class="wrap">
+
+  <p class="dev">Edward Sotelo Jr</p>
+
+  <section class="hero">
+    <div class="orbit" aria-hidden="true">
+      <div class="core"></div>
+      <div class="body a"></div>
+      <div class="body b"></div>
+    </div>
+
+    <h1>Match Made In Heaven</h1>
+    <p class="tag">Two birth charts, one score. See how two people line up across ten
+    planets and the Chinese zodiac.</p>
+
+    <div class="cta">
+      <a class="btn primary" href="https://apps.apple.com/app/id1476080558">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.53 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.41 1.2-2.47-.03-.01-2.3-.88-2.32-3.5zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.67.97.08 1.96-.49 2.56-1.22z"/></svg>
+        Download on the App Store
+      </a>
+      <a class="btn ghost" href="https://edwardsotelojr.github.io/matchmadeinheaven-support/">Support</a>
+    </div>
+  </section>
+
+  <section class="features" aria-label="Features">
+    <div class="card">
+      <div class="glyph" aria-hidden="true">☉ ☽ ♀</div>
+      <h3>Ten planets, scored</h3>
+      <p>Every planet gets its own verdict and a short interpretation of what the pairing means.</p>
+    </div>
+    <div class="card">
+      <div class="glyph" aria-hidden="true">✶</div>
+      <h3>Chinese zodiac too</h3>
+      <p>Each person's animal year is paired and rated on the same scale as the planets.</p>
+    </div>
+    <div class="card">
+      <div class="glyph" aria-hidden="true">✦</div>
+      <h3>Computed on your device</h3>
+      <p>No account and no sign-in. Charts are drawn from data built into the app.</p>
+    </div>
+  </section>
+
+  <p class="fine">Match Made In Heaven is for iPhone and iPad and is provided for
+  entertainment purposes only.</p>
+
+  <footer>
+    <nav>
       <a href="https://edwardsotelojr.github.io/matchmadeinheaven-support/">Support</a>
       <a href="https://edwardsotelojr.github.io/matchmadeinheaven-support/privacy.html">Privacy Policy</a>
-    </div>
-  </main>
+      <a href="mailto:edwardsotelojr@gmail.com">Contact</a>
+    </nav>
+    <p>© 2026 Edward Sotelo Jr.</p>
+  </footer>
+
+</div>
 </body>
 </html>
